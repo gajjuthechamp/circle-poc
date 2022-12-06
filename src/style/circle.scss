@@ -1,0 +1,122 @@
+@mixin circle( $reverse: false, $direction:right, $translateX: 70%, $translateY: 20%, $circleSize: 60vh, $color: #FFF, $minCircleSize: 1024px ) {
+	$animation-name: unique-id() !global;
+	position: relative;
+	overflow: hidden;
+
+	&:before {
+		display: inline-block;
+		pointer-events: none; // let us click through :)
+		content: '';
+		width: $circleSize;
+		height: $circleSize;
+		min-width: $minCircleSize;
+		min-height: $minCircleSize;
+		border-radius: 50%;
+		border: 5px solid transparent;
+		position: absolute;
+
+		@if $direction =='right' {
+			right:0;
+			left:auto;
+			border-color: $color $color transparent transparent;
+			
+		} @else {
+			left:0;
+			right:auto;
+			border-color: transparent transparent $color $color;
+		}
+
+		@if $reverse == false {
+			top:auto;
+			bottom: 0;
+			transform: translate($translateX, $translateY) rotate(45deg);	
+			animation:$animation-name 2s linear forwards;
+
+			@keyframes #{$animation-name}{
+				0%{transform: translate($translateX, $translateY) rotate(45deg); }
+				25%{transform: translate($translateX, $translateY) rotate(0deg); }
+				50%{transform: translate($translateX, $translateY) rotate(-45deg); }
+				75%{transform: translate($translateX, $translateY) rotate(-90deg); }
+				100%{transform: translate($translateX, $translateY) rotate(-135deg); }
+			}
+		}
+		@else {
+			top:0;
+			bottom:auto;
+			transform: translate($translateX, ($translateY - 100%));
+			animation:$animation-name 2s linear forwards;
+
+			@keyframes #{$animation-name} {
+				25%{transform: translate($translateX, ($translateY - 100%)) rotate(45deg); }
+				25%{transform: translate($translateX, ($translateY - 100%)) rotate(0deg); }
+				50%{transform: translate($translateX, ($translateY - 100%)) rotate(-45deg); }
+				75%{transform: translate($translateX, ($translateY - 100%)) rotate(-90deg); }
+				100%{transform: translate($translateX, ($translateY - 100%)) rotate(-135deg); }
+			}
+		}
+	}
+}
+.circle {
+	@include circle();
+}
+
+.circle-reverse {
+	@include circle($reverse:true, $color:#F00);
+}
+
+
+/* CSS class based approch 
+
+.circle {
+	position: relative;
+	overflow: hidden;
+	
+
+	&:before {
+		display: inline-block;
+		pointer-events: none; // let us click through :)
+		content: '';
+		width: $circleSize;
+		height: $circleSize;
+		min-width: $minCircleSize;
+		min-height: $minCircleSize;
+		border-radius: 50%;
+		border: 5px solid transparent;
+		position: absolute;
+		right:0;		
+    	bottom: 0;	
+		
+    	transform: translate($translateX, $translateY) rotate(45deg);
+		border-color: $colorPrimary $colorPrimary transparent transparent;
+		animation:spin 2s linear forwards;
+
+
+	}
+
+	&.red:before {
+		border-color: $colorSecondary $colorSecondary transparent transparent;
+	} 
+	&.bottom:before {
+		bottom:auto;
+		top:0;
+		transform: translate($translateX, ($translateY - 100%));
+		animation:spin2 2s linear forwards;
+	} 
+
+	@keyframes spin{
+		25%{transform: translate($translateX, $translateY) rotate(0deg); }
+		50%{transform: translate($translateX, $translateY) rotate(-45deg); }
+		75%{transform: translate($translateX, $translateY) rotate(-90deg); }
+		100%{transform: translate($translateX, $translateY) rotate(-135deg); }
+	}
+
+	@keyframes spin2 {
+		25%{transform: translate($translateX, ($translateY - 100%)) rotate(0deg); }
+		50%{transform: translate($translateX, ($translateY - 100%)) rotate(-45deg); }
+		75%{transform: translate($translateX, ($translateY - 100%)) rotate(-90deg); }
+		100%{transform: translate($translateX, ($translateY - 100%)) rotate(-135deg); }
+	}
+
+}
+
+*/

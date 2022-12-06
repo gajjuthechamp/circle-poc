@@ -1,0 +1,50 @@
+@import './../../style/circle.scss';
+
+.content-section {
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: #051240;
+	
+
+	.content {
+		position: relative;
+		z-index: 10;
+	}
+
+	&.whiteBackground {
+		@include circle($reverse:true, $color:#F00);
+	}
+
+	&.redBackground {
+		@include circle($reverse:true, $direction:left, $translateX:-50%, $translateY:40%,$circleSize: 40vh, $color:#00F);
+
+		background:url('../../images/redBg.png') repeat-x top center;
+		color: #fff;
+		
+
+		.content {
+			
+			max-width: 700px;
+			margin: auto;
+		}
+		a {
+			background: #fff;
+		}
+	}
+
+	h2 {		
+		padding-bottom: 20px;
+	}
+
+	p{
+		padding-bottom: 10px;
+	}
+
+	a {
+		color:#E42313;
+		text-decoration: underline;
+		padding:10px 20px;
+		border-radius: 8px;
+	}
+}

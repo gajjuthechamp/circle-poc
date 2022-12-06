@@ -1,0 +1,21 @@
+.header {
+	position: fixed;
+	z-index: 99;
+	top:0;
+	width: 100%;
+	background:url('../../images/header-grad.png') repeat-x top center;
+
+	nav {
+		background: none;
+		
+		.navbar-nav {
+			margin-left: 20px;
+			a {
+				display:inline-block;
+				color:white;
+				font-weight:bold;
+				padding: 0 10px;
+			}
+		}
+	}
+}
